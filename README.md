@@ -11,6 +11,7 @@ Highlight any date and right-click to bring up the context menu and click on Cre
 This is a work in progress. Currently the limitations are:
 - When no time is provided events start at midnight
 - Events are defaulted to 30 minutes duration
+- no error message when a date isn't selected
 
 # Road Map
 
@@ -19,4 +20,5 @@ This is a work in progress. Currently the limitations are:
 
 # Built With
 
-This extension makes use of [SugarJS](https://sugarjs.com/) for the parsing of the dates written in natural language.
+This extension makes use of [SugarJS](https://sugarjs.com/) for the parsing of the dates written in natural language.  
+Icons made by [Pixel Perfect](https://www.flaticon.com/authors/pixel-perfect) from [www.flaticon.com](www.flaticon.com)
