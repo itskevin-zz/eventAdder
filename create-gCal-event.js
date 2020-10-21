@@ -5,18 +5,11 @@ function getdate(info,tab) {
   }
   console.log(info.selectionText + " was selected.");
 
-  // function to add a day in order to avoid error on google's event endpoint
-  Date.prototype.addDays = function(days) {
-    let endDate = new Date(this.valueOf());
-    endDate.setDate(endDate.getDate() + days);
-    return endDate;
-  }
-
-  const parsedDate = Sugar.Date.create(info.selectionText)
-  const startDate = new Date(parsedDate);
-  const endDate = new Date(parsedDate).addDays(1);
-  const eventStart = startDate.toJSON().replace(/-|:|\.\d\d\d|T\d\d:\d\d:\d\d.\d\d\dZ/g,"");
-  const eventEnd =  endDate.toJSON().replace(/-|:|\.\d\d\d|T\d\d:\d\d:\d\d.\d\d\dZ/g,"");
+  const parsedDate = Sugar.Date.create(info.selectionText, { fromUTC: true })
+  const start = new Date(parsedDate);
+  const end = new Date(parsedDate.getTime() + 30*60000);
+  const eventStart = start.toJSON().replace(/-|:|\.\d\d\d|Z/g,"");
+  const eventEnd =  end.toJSON().replace(/-|:|\.\d\d\d|Z/g,"");
   
   chrome.tabs.create({  
     url: "https://calendar.google.com/calendar/render?action=TEMPLATE&dates=" + eventStart + "%2f" + eventEnd
