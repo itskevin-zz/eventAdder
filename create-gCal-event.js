@@ -5,15 +5,21 @@ function getdate(info,tab) {
   }
   console.log(info.selectionText + " was selected.");
 
-  // switch case for different date formats
-  
-  
-  const parsedDate = Date.parse(info.selectionText);
-  const toDate = new Date(parsedDate);
-  const eventStart = toDate.toJSON().replace(/-|:|\.\d\d\d|Z/g,"");
+  // function to add a day in order to avoid error on google's event endpoint
+  Date.prototype.addDays = function(days) {
+    let endDate = new Date(this.valueOf());
+    endDate.setDate(endDate.getDate() + days);
+    return endDate;
+  }
+
+  const parsedDate = Sugar.Date.create(info.selectionText)
+  const startDate = new Date(parsedDate);
+  const endDate = new Date(parsedDate).addDays(1);
+  const eventStart = startDate.toJSON().replace(/-|:|\.\d\d\d|T\d\d:\d\d:\d\d.\d\d\dZ/g,"");
+  const eventEnd =  endDate.toJSON().replace(/-|:|\.\d\d\d|T\d\d:\d\d:\d\d.\d\d\dZ/g,"");
   
   chrome.tabs.create({  
-    url: "https://calendar.google.com/calendar/render?action=TEMPLATE&dates=" + eventStart + "%2f" + eventStart
+    url: "https://calendar.google.com/calendar/render?action=TEMPLATE&dates=" + eventStart + "%2f" + eventEnd
   });
 }
 chrome.contextMenus.create({
