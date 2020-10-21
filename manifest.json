@@ -1,0 +1,19 @@
+{
+    "name": "Create Google Event",
+    "description": "Create google event from any date on webpage",
+    "version": "1.0.0",
+    "permissions": [
+        "contextMenus",
+        "tabs"
+    ],
+    "background": {
+        "scripts": ["create-gCal-event.js"]
+    },
+    "manifest_version": 2,
+    "icons": {
+        "48": "icons/event-96.png"
+    },
+    "browser_action": {
+        "default_icon": "icons/event-96.png"
+    }
+}
